@@ -1,0 +1,19 @@
+{% extends "main.html" %}
+{%load i18n%}
+{% block content %}
+<h3>{% trans "login realized" %}: <i>{{request.user.username}}</i></h3>
+<button> <a href="sign/logout/">{% trans "Exit" %}</a> </button>
+
+<body style="background-color: #00FF00">
+
+<h1> <p align="center" > {{message}}  <i>{{category}}</i> </p> </h1>
+
+
+<p align="right"><button><a href="{% url 'category_list' category.id %}"> {% trans "Fall in category news" %} </a></button> </p>
+<p align="right"><button> <a href="/"> {% trans "Return to main page portal" %} </a></button> </p>
+
+<BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR>
+<p align="center"> <a href="{% url 'unsubscribe' category.id %}"> {% trans "Unsubscribe mailing the category" %} </a> </p>
+{% endblock content %}
+
+</body>

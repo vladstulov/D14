@@ -1,0 +1,192 @@
+
+{% load custom_filters %}  <!-- наши фильтры -->
+{%load i18n%}
+<!-- интернационализенйшн тег айнайтинн -->
+{% load tz %}
+{% load custom_extras %}
+
+{% block title %}
+News.html
+{% endblock title %}
+{% load custom_extras %}
+
+{% block content %}
+
+
+
+{% get_hour as HOUR %}
+<style>
+body {background-color: {% if HOUR >= 19 or HOUR <= 7 %} darkcyan {% else %} #FFFFCC {% endif %};}
+</style>
+
+
+<h3>{% trans "login realized" %}: <i>{{request.user.username}}</i></h3>
+<button> <a href="sign/logout/">{% trans "Exit" %}</a> </button>
+
+<BR><BR>
+<p align="left" ><i>{% trans "Display language" %}</i> </p>
+
+
+
+    <form action="{% url 'set_language' %}" method="POST"> {% csrf_token %} <!-- Не забываем по csrf_token для POST запросов -->
+        <input type="hidden" name="next" value="{{ redirect_to }}">
+        {% get_current_language as LANGUAGE_CODE %}
+
+        <select name="language" id="">
+            {% get_available_languages as LANGUAGES %} <!-- получаем языки -->
+            {% get_language_info_list for LANGUAGES as languages %} <!-- Помещаем их в список languages -->
+
+            {% for language in languages %} <!-- Итерируясь по списку, выводим их название на языке пользователя и код -->
+                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected >{% endif %}>
+                    {{ language.name_local }} - {{ language.code }}
+                </option>
+            {% endfor %}
+        </select>
+        <input type="submit" value={% trans "set" %}>
+    </form>
+<BR> <BR>
+  {% get_current_timezone as TIME_ZONE %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label for="timezone">Time zone:</label>
+        <select name="timezone">
+            {% for tz in timezones %}
+            <option value="{{ tz }}"{% if tz == TIME_ZONE %} selected{% endif %}>{{ tz }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value={% trans "set" %}>
+    </form>
+
+    {{ TIME_ZONE }}
+    {{ current_time|timezone:TIME_ZONE }} <!-- Отображаем время в выбранном часовом поясе  -->
+
+
+
+    <h1><p align="center" >{% trans "News in the portal" %}</p></h1>
+
+    <hr>
+    {% if news %} <!-- Если есть заметки, то выводим таблицу с ними -->
+      {% trans "Quantity of notes on the portal" %}:
+        <!-- {{ news|length }} -->
+        {{newsListLength|length }}
+
+
+    {% else %}
+        <h2>{% trans "Not notes on the portal now" %}!</h2>
+    {% endif %}
+
+
+
+
+<!-- Перед таблицей добавим форму для поиска -->
+
+<p align="left"><button> <a href="search"> {% trans "Search" %} </a> </button></p>
+
+<p align="right"><button> <a href="add"> {% trans "Add notes on the portal" %} </a> </button></p>
+
+        <table>
+            <tr>
+                <td>
+                    <strong><p align="right" >{% trans "Name" %}</p></strong>
+                 <br><br>
+                </td>
+
+                <td>
+<!-- добавляем пустой столбец, чтобы аккуратно отображалось на странице -->
+                    <br><br>
+                </td>
+
+
+
+                <td>
+                    <strong><p align="center" >{% trans "Date of publication" %}</p></strong>
+                    <br><br>
+                </td>
+                <td>
+                    <strong><p align="center" >{% trans "Description" %}</p></strong>
+                    <br><br>
+                </td>
+                <td width=100px>
+                    <strong><p align="left" >{% trans "Author" %}</p></strong>
+                    <br><br>
+                </td>
+                <td>
+                    <strong><p align="center" >{% trans "Category" %}<p></strong>
+                    <br><br>
+                </td>
+            </tr>
+            <br>
+
+        {% for note in news %}
+
+            <tr>
+
+                <td> <
+                    <a href="{% url 'note' note.id %}">{{ note.title|censor }}</a> &emsp; &emsp; &emsp; &emsp;
+                    <td>
+                    <a  href="{% url 'newsEdit' note.id %}">{% trans "Edit" %}</a>
+                    <a href="{% url 'newsDelete' note.id %}"> {% trans "Delete" %} </a>
+                    </td>
+                    <br>
+
+                </td>
+                    
+                <td>
+                    {{ note.dateCreation|date:'d M Y' }}
+                    <br>
+                </td>
+
+                <td width=40%>
+                    {{ note.text|truncatechars:77|censor }} <!-- дописываем специальный фильтр, чтобы ограничить количество
+                    символов до 77. Все остальные символы превратятся в многоточие. -->
+                    <br>
+                </td>
+                <td width=100px>
+                    {{ note.author }}
+                    <br>
+                </td>
+
+                <td>
+                    <!--{{ note.category }}-->
+                    <a href="{% url 'category_list' note.category.id %}">{{ note.category }}</a>
+
+                    <br>
+                    <br>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+{% if is_paginated %}
+
+    <!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
+    {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+    {% endif %}
+
+    <!-- Показываем только текущую страницу и ближайшие к ней, чтобы список не тянулся и не захламлял страницу -->
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a>{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Если есть следующая страница, то даём ссылку на неё и на самую последнюю страницу -->
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">>>></a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+
+
+{% endif %}
+
+<!-- Добавляем кнопку Стать автором. При нажатии выполняется метод upgrade_me лежащий sign/view -->
+{% if is_not_authors %}
+<p align="right"><button>  <a href="sign/upgrade/"> {% trans "Become an author" %}!</a> </button></p>
+
+{% endif %}
+
+{% endblock content %}
+</body>

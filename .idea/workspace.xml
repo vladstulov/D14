@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7f97f03c-b333-490a-8ad0-a9ee9d310484" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/D14_News.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/prj/newsapp/templatetags/custom_extras.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/D4_News.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/D4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/prj/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/prj/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/newsapp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/prj/newsapp/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/newsapp/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/prj/newsapp/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/newsapp/filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/prj/newsapp/filters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/newsapp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/prj/newsapp/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/newsapp/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/newsapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/prj/newsapp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/newsapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/prj/newsapp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/newsapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/prj/newsapp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/prj/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/prj/prj/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/prj/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/prj/prj/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/prj/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/prj/prj/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/prj/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/prj/prj/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/templates/default.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/templates/flatpages/default.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/templates/news.html" beforeDir="false" afterPath="$PROJECT_DIR$/prj/templates/newsapp/news.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/templates/newsAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/prj/templates/newsapp/newsAdd.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/templates/newsDelete.html" beforeDir="false" afterPath="$PROJECT_DIR$/prj/templates/newsapp/newsDelete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/templates/newsEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/prj/templates/newsapp/newsEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/templates/newsSearch.html" beforeDir="false" afterPath="$PROJECT_DIR$/prj/templates/newsapp/newsSearch.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prj/templates/note.html" beforeDir="false" afterPath="$PROJECT_DIR$/prj/templates/newsapp/note.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2MvLH79kG2T2Dpi7eV3AdVWn0k0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/py/D14_News"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7f97f03c-b333-490a-8ad0-a9ee9d310484" name="Changes" comment="" />
+      <created>1678643018415</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1678643018415</updated>
+    </task>
+    <servers />
+  </component>
+</project>

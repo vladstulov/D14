@@ -1,0 +1,51 @@
+{% extends "main.html" %}
+{%load i18n%}
+
+
+{% block title %} {% trans "Delete note" %} {% endblock title %}
+
+{% block content %}
+
+<h3>{% trans "login realized" %}: <i>{{request.user.username}}</i></h3>
+<button> <a href="sign/logout/">{% trans "Exit" %}</a> </button>
+    <p align="right"><button> <a href="/"> {% trans "Return to main page portal" %} </a></button> </p>
+
+   <h2>{% trans "Are you sure delete this note?" %}</h2>
+<table>
+            <tr>
+                <td>
+                     {% trans "Name" %}
+                </td>
+                <td>
+                   {% trans "Date of publication" %}
+                </td>
+                <td>
+                    {% trans "Description" %}
+                </td>
+                <td>
+                    {% trans "Author" %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ note.title}}
+                </td>
+                <td>
+                    {{ note.dateCreation|date:'d-M-Y h:m' }}
+                </td>
+
+                <td>
+                    {{ note.text }}
+                </td>
+                <td>
+                    {{ note.author }}
+                </td>
+            </tr>
+        </table>
+
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form }} <!-- Теперь нам нужна только готовая форма и кнопка -->
+    <input type="submit" value={% trans "submit" %}></form>
+{% endblock content %}

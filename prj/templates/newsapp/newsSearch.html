@@ -1,0 +1,128 @@
+{% extends "main.html" %}
+{%load i18n%}
+{% load custom_filters %} <!-- не забываем заранее загружать наши фильтры! -->
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+
+<body style="background-color: #addfad">
+<h3>{% trans "login realized" %}: <i>{{request.user.username}}</i></h3>
+<button> <a href="sign/logout/">{% trans "Exit" %}</a> </button>
+
+<BR><BR>
+<p align="left" ><i>{% trans "Display language" %}</i> </p>
+
+
+
+    <form action="{% url 'set_language' %}" method="POST"> {% csrf_token %} <!-- Не забываем по csrf_token для POST запросов -->
+        <input type="hidden" name="next" value="{{ redirect_to }}">
+        {% get_current_language as LANGUAGE_CODE %}
+
+        <select name="language" id="">
+            {% get_available_languages as LANGUAGES %} <!-- получаем языки -->
+            {% get_language_info_list for LANGUAGES as languages %} <!-- Помещаем их в список languages -->
+
+            {% for language in languages %} <!-- Итерируясь по списку, выводим их название на языке пользователя и код -->
+                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                    {{ language.name_local }} - {{ language.code }}
+                </option>
+            {% endfor %}
+        </select>
+        <input type="submit" value={% trans "set" %}>
+    </form>
+
+    <h1><p align="center" >{% trans "Search on the portal news" %} </p></h1>
+    <p align="right"><button> <a href="/"> {% trans "Return to main page portal" %} </a></button> </p>
+
+    <hr>
+    {% if news %} <!-- Если есть заметки, то выводим таблицу с ними -->
+       {% trans "Quantity of notes on the portal" %}: {{ news|length }} <br> <br> <br>
+
+
+    {% else %}
+        <h2>{% trans "Not notes on the portal now" %}!</h2>
+    {% endif %}
+
+
+<!-- Перед таблицей добавим форму для поиска -->
+<form method="GET">
+
+    {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
+<p align="right" ><input type="submit" value={% trans "Search" %} style="height:60px; width:250px" /></p>
+</form>
+
+        <table>
+            <tr>
+                <td>
+                    <b>{% trans "Name" %}</b>
+                </td>
+                <td>
+                    <b>{% trans "Date of publication" %}</b>
+                </td>
+                <td >
+                   <b>{% trans "Description" %}</b>
+                </td>
+                <td  >
+                    <b>{% trans "Author" %}</b>
+                </td>
+
+                <td  >
+                    <b>{% trans "Category" %}</b>
+                </td>
+
+            </tr>
+        {% for note in  filter.qs %}
+            <tr>
+                <td>
+                    <!-- {{ note.title|censor }} -->
+                    <a href="{% url 'note' note.id %}">{{ note.title|censor }}</a>
+                </td>
+                <td>
+                    {{ note.dateCreation|date:'d M Y' }}
+                </td>
+
+                <td width="40%">
+                    {{ note.text|truncatechars:77|censor }} <!-- дописываем специальный фильтр, чтобы ограничить количество символов до 20. Все остальные символы превратятся в многоточие. -->
+                </td>
+                <td>
+                    {{ note.author }}
+                </td>
+
+                <td>
+                    {{ note.category }}
+                </td>
+
+            </tr>
+        {% endfor %}
+        </table>
+{% if is_paginated %}
+
+    <!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
+    {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+    {% endif %}
+
+    <!-- Показываем только текущую страницу и ближайшие к ней, чтобы список не тянулся и не захламлял страницу -->
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a>{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Если есть следующая страница, то даём ссылку на неё и на самую последнюю страницу -->
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">>>></a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+
+{% endif %}
+
+
+{% endblock content %}
+
